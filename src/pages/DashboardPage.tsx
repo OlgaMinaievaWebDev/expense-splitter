@@ -1,3 +1,4 @@
+import { Link } from 'react-router';
 import styles from './DashboardPage.module.css';
 
 type DashboardPageProps = {
@@ -34,9 +35,9 @@ function DashboardPage({ userName }: DashboardPageProps) {
           <p className={styles.description}>
             Create a group to start splitting expenses.
           </p>
-          <button type="button" className={styles.createButton}>
+          <Link to="/groups/new" className={styles.createButton}>
             Create a group
-          </button>
+          </Link>
         </div>
       </section>
     </div>
