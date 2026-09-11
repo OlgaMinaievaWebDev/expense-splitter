@@ -122,3 +122,58 @@
   outline: 3px solid #176b4a;
   outline-offset: 2px;
 }
+
+.groupList {
+  list-style: none;
+  padding: 0;
+  margin-top: 24px;
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.groupCard {
+  background-color: #fff;
+  border: 1px solid #dde4e1;
+  border-radius: 16px;
+  padding: 20px;
+}
+
+.groupName {
+  margin: 0;
+  font-size: 18px;
+}
+
+.groupMeta {
+  margin: 8px 0 0;
+  color: #66717a;
+}
+
+.groupsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.groupsTitle {
+  margin: 0;
+  font-size: 22px;
+}
+
+.createAnotherLink {
+  color: #176b4a;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.createAnotherLink:hover {
+  text-decoration: underline;
+}
+
+.createAnotherLink:focus-visible {
+  outline: 2px solid #176b4a;
+  outline-offset: 4px;
+  border-radius: 2px;
+}
