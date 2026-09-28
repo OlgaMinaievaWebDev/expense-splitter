@@ -1,0 +1,82 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100dvh;
+  width: 100%;
+  max-width: 400px;
+  padding: 0 24px;
+  margin: 0 auto;
+}
+
+.page h1 {
+  margin: 0;
+  font-size: 32px;
+  line-height: 1.1;
+  font-weight: 700;
+}
+
+.logo {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 16px;
+  background: #d9f4e7;
+  color: #176b4a;
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+
+.tagline {
+  margin: 12px 0 38px;
+  color: #66717a;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.field label {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.input {
+  width: 100%;
+  height: 52px;
+  padding: 0 15px;
+  border: 1px solid #c8d0cd;
+  background-color: white;
+  border-radius: 11px;
+  color: inherit;
+}
+
+.submit {
+  width: 100%;
+  height: 52px;
+  background-color: #176b4a;
+  border: 0;
+  color: white;
+  border-radius: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.input:focus-visible,
+.submit:focus-visible {
+  outline: 3px solid #176b4a;
+  outline-offset: 2px;
+}
