@@ -18,7 +18,12 @@ function App() {
       return [];
     }
     try {
-      return JSON.parse(storedGroups) as Group[];
+      const parsedGroups: unknown = JSON.parse(storedGroups);
+      if (!Array.isArray(parsedGroups)) {
+        localStorage.removeItem(GROUPS_STORAGE_KEY);
+        return [];
+      }
+      return parsedGroups as Group[];
     } catch {
       localStorage.removeItem(GROUPS_STORAGE_KEY);
       return [];
@@ -57,6 +62,7 @@ function App() {
             currentUser ? (
               <CreateGroupPage
                 userName={currentUser}
+                groups={groups}
                 onCreateGroup={handleCreateGroup}
               />
             ) : (

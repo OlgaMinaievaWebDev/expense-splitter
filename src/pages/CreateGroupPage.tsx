@@ -1,19 +1,26 @@
-import { useState, type SubmitEvent } from 'react';
+import { useRef, useState, type SubmitEvent, type KeyboardEvent } from 'react';
 import { Link, useNavigate } from 'react-router';
 import type { Group } from '../types/group';
 import styles from './CreateGroupPage.module.css';
 
 type CreateGroupPageProps = {
   userName: string;
+  groups: Group[];
   onCreateGroup: (group: Group) => void;
 };
 
 const currencies = ['CAD', 'USD', 'EUR', 'GBP'];
 
-function CreateGroupPage({ userName, onCreateGroup }: CreateGroupPageProps) {
+function CreateGroupPage({
+  userName,
+  groups,
+  onCreateGroup,
+}: CreateGroupPageProps) {
   const [memberName, setMemberName] = useState('');
   const [members, setMembers] = useState<string[]>([]);
   const [memberError, setMemberError] = useState('');
+  const [groupNameError, setGroupNameError] = useState('');
+  const groupNameInputRef = useRef<HTMLInputElement>(null);
 
   const navigate = useNavigate();
 
@@ -35,6 +42,13 @@ function CreateGroupPage({ userName, onCreateGroup }: CreateGroupPageProps) {
     setMembers((prevMembers) => [...prevMembers, sanitizedMemberName]);
     setMemberName('');
     setMemberError('');
+  };
+
+  const handleMemberKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      handleAddMember();
+    }
   };
 
   const handleRemoveMember = (name: string) => {
@@ -66,6 +80,19 @@ function CreateGroupPage({ userName, onCreateGroup }: CreateGroupPageProps) {
       groupName: groupNameTrimmed,
       baseCurrency: formValues.baseCurrency,
     };
+
+    const groupNameExists = groups.some(
+      (group) =>
+        group.name.trim().toLowerCase() === groupNameTrimmed.toLowerCase()
+    );
+
+    if (groupNameExists) {
+      setGroupNameError('A group with this name already exists');
+      groupNameInputRef.current?.focus();
+      return;
+    }
+
+    setGroupNameError('');
 
     const group: Group = {
       id: crypto.randomUUID(),
@@ -104,6 +131,7 @@ function CreateGroupPage({ userName, onCreateGroup }: CreateGroupPageProps) {
               Group name
             </label>
             <input
+              ref={groupNameInputRef}
               id="group-name"
               name="groupName"
               type="text"
@@ -111,7 +139,19 @@ function CreateGroupPage({ userName, onCreateGroup }: CreateGroupPageProps) {
               required
               autoComplete="off"
               className={styles.control}
+              onChange={() => {
+                if (groupNameError) {
+                  setGroupNameError('');
+                }
+              }}
+              aria-invalid={Boolean(groupNameError)}
+              aria-describedby={groupNameError ? 'group-name-error' : undefined}
             />
+            {groupNameError && (
+              <p id="group-name-error" role="alert" className={styles.error}>
+                {groupNameError}
+              </p>
+            )}
           </div>
           <div className={styles.field}>
             <label htmlFor="base-currency" className={styles.label}>
@@ -164,7 +204,14 @@ function CreateGroupPage({ userName, onCreateGroup }: CreateGroupPageProps) {
               placeholder="Member name"
               autoComplete="off"
               value={memberName}
-              onChange={(e) => setMemberName(e.target.value)}
+              onChange={(event) => {
+                setMemberName(event.target.value);
+
+                if (memberError) {
+                  setMemberError('');
+                }
+              }}
+              onKeyDown={handleMemberKeyDown}
               aria-invalid={Boolean(memberError)}
               aria-describedby={memberError ? 'member-name-error' : undefined}
               autoCapitalize="words"
