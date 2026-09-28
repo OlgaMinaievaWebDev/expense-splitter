@@ -1,6 +1,7 @@
 import { useState, type SubmitEvent } from 'react';
 import { Link, useNavigate } from 'react-router';
 import type { Group } from '../types/group';
+import styles from './CreateGroupPage.module.css';
 
 type CreateGroupPageProps = {
   userName: string;
@@ -87,15 +88,21 @@ function CreateGroupPage({ userName, onCreateGroup }: CreateGroupPageProps) {
   };
 
   return (
-    <div>
-      <Link to="/">← Back to dashboard</Link>
-      <h1>Create a group</h1>
-      <p>Current user {userName} will be added automatically</p>
-      <form onSubmit={handleSubmit}>
-        <fieldset>
-          <legend>Group details</legend>
-          <div>
-            <label htmlFor="group-name">Group name</label>
+    <div className={styles.page}>
+      <Link to="/" className={styles.backLink}>
+        ← Back to dashboard
+      </Link>
+      <h1 className={styles.title}>Create a group</h1>
+      <p className={styles.intro}>
+        Current user {userName} will be added automatically
+      </p>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <fieldset className={styles.fieldset}>
+          <legend className={styles.legend}>Group details</legend>
+          <div className={styles.field}>
+            <label htmlFor="group-name" className={styles.label}>
+              Group name
+            </label>
             <input
               id="group-name"
               name="groupName"
@@ -103,15 +110,19 @@ function CreateGroupPage({ userName, onCreateGroup }: CreateGroupPageProps) {
               placeholder="Toronto trip"
               required
               autoComplete="off"
+              className={styles.control}
             />
           </div>
-          <div>
-            <label htmlFor="base-currency">Base currency</label>
+          <div className={styles.field}>
+            <label htmlFor="base-currency" className={styles.label}>
+              Base currency
+            </label>
             <select
               name="baseCurrency"
               id="base-currency"
               required
               defaultValue=""
+              className={styles.control}
             >
               <option value="" disabled>
                 Select currency
@@ -124,46 +135,58 @@ function CreateGroupPage({ userName, onCreateGroup }: CreateGroupPageProps) {
             </select>
           </div>
         </fieldset>
-        <fieldset>
-          <legend>Members</legend>
-          <p>{userName} (you)</p>
-          <ul>
+        <fieldset className={styles.fieldset}>
+          <legend className={styles.legend}>Members</legend>
+          <p className={styles.currentUser}>{userName} (you)</p>
+          <ul className={styles.memberList}>
             {members.map((member) => (
-              <li key={member}>
+              <li key={member} className={styles.memberItem}>
                 <span>{member}</span>
                 <button
                   type="button"
                   onClick={() => handleRemoveMember(member)}
                   aria-label={`Remove ${member}`}
+                  className={styles.removeButton}
                 >
                   Remove
                 </button>
               </li>
             ))}
           </ul>
-          <label htmlFor="member-name">Add a member</label>
-          <input
-            id="member-name"
-            name="memberName"
-            type="text"
-            placeholder="Member name"
-            autoComplete="off"
-            value={memberName}
-            onChange={(e) => setMemberName(e.target.value)}
-            aria-invalid={Boolean(memberError)}
-            aria-describedby={memberError ? 'member-name-error' : undefined}
-            autoCapitalize="words"
-          />
+          <label htmlFor="member-name" className={styles.label}>
+            Add a member
+          </label>
+          <div className={styles.memberControls}>
+            <input
+              id="member-name"
+              name="memberName"
+              type="text"
+              placeholder="Member name"
+              autoComplete="off"
+              value={memberName}
+              onChange={(e) => setMemberName(e.target.value)}
+              aria-invalid={Boolean(memberError)}
+              aria-describedby={memberError ? 'member-name-error' : undefined}
+              autoCapitalize="words"
+              className={styles.control}
+            />
+            <button
+              type="button"
+              onClick={handleAddMember}
+              className={styles.addButton}
+            >
+              Add member
+            </button>
+          </div>
           {memberError && (
-            <p id="member-name-error" role="alert">
+            <p id="member-name-error" role="alert" className={styles.error}>
               {memberError}
             </p>
           )}
-          <button type="button" onClick={handleAddMember}>
-            Add member
-          </button>
         </fieldset>
-        <button type="submit">Create group</button>
+        <button type="submit" className={styles.submitButton}>
+          Create group
+        </button>
       </form>
     </div>
   );
