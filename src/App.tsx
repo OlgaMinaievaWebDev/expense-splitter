@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import WelcomePage from './pages/WelcomePage';
+import DashboardPage from './pages/DashboardPage';
 
 const CURRENT_USER_STORAGE_KEY = 'expense-splitter-current-user';
 
@@ -16,7 +17,7 @@ function App() {
   return (
     <main>
       {currentUser ? (
-        <h2>Welcome, {currentUser}</h2>
+        <DashboardPage userName={currentUser} />
       ) : (
         <WelcomePage onContinue={handleContinue} />
       )}
