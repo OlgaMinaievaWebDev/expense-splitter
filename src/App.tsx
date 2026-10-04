@@ -43,6 +43,11 @@ function App() {
     });
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem(CURRENT_USER_STORAGE_KEY);
+    setCurrentUser(null);
+  };
+
   return (
     <main>
       <Routes>
@@ -50,7 +55,11 @@ function App() {
           path="/"
           element={
             currentUser ? (
-              <DashboardPage userName={currentUser} groups={groups} />
+              <DashboardPage
+                userName={currentUser}
+                groups={groups}
+                onLogout={handleLogout}
+              />
             ) : (
               <WelcomePage onContinue={handleContinue} />
             )

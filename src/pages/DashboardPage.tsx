@@ -5,9 +5,10 @@ import styles from './DashboardPage.module.css';
 type DashboardPageProps = {
   userName: string;
   groups: Group[];
+  onLogout: () => void;
 };
 
-function DashboardPage({ userName, groups }: DashboardPageProps) {
+function DashboardPage({ userName, groups, onLogout }: DashboardPageProps) {
   const sortedGroups = [...groups].sort((firstGroup, secondGroup) => {
     const firstDate = new Date(firstGroup.createdAt).getTime();
     const secondDate = new Date(secondGroup.createdAt).getTime();
@@ -33,6 +34,9 @@ function DashboardPage({ userName, groups }: DashboardPageProps) {
             </span>
             <span className={styles.userName}>{userName}</span>
           </div>
+          <button type="button" onClick={onLogout}>
+            Log out
+          </button>
         </div>
       </header>
 
