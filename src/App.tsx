@@ -3,6 +3,7 @@ import { Routes, Route, Navigate } from 'react-router';
 import WelcomePage from './pages/WelcomePage';
 import DashboardPage from './pages/DashboardPage';
 import CreateGroupPage from './pages/CreateGroupPage';
+import GroupDetailsPage from './pages/GroupDetailsPage';
 import type { Group } from './types/group';
 
 const CURRENT_USER_STORAGE_KEY = 'expense-splitter-current-user';
@@ -74,6 +75,16 @@ function App() {
                 groups={groups}
                 onCreateGroup={handleCreateGroup}
               />
+            ) : (
+              <Navigate to="/" replace />
+            )
+          }
+        />
+        <Route
+          path="/groups/:groupId"
+          element={
+            currentUser ? (
+              <GroupDetailsPage groups={groups} />
             ) : (
               <Navigate to="/" replace />
             )
