@@ -63,18 +63,20 @@ function DashboardPage({ userName, groups, onLogout }: DashboardPageProps) {
             <ul className={styles.groupList}>
               {sortedGroups.map((group) => (
                 <li key={group.id} className={styles.groupCard}>
-                  <h2 className={styles.groupName}>{group.name}</h2>
-                  <p className={styles.groupMeta}>
-                    Currency: {group.baseCurrency}
-                  </p>
-                  <p className={styles.groupMeta}>
-                    {group.members.length > 1
-                      ? `${group.members.length} members`
-                      : `${group.members.length} member`}
-                  </p>
-                  <p className={styles.groupMeta}>
-                    Created: {new Date(group.createdAt).toLocaleDateString()}
-                  </p>
+                  <Link to={`/groups/${group.id}`} className={styles.groupLink}>
+                    <h2 className={styles.groupName}>{group.name}</h2>
+                    <p className={styles.groupMeta}>
+                      Currency: {group.baseCurrency}
+                    </p>
+                    <p className={styles.groupMeta}>
+                      {group.members.length > 1
+                        ? `${group.members.length} members`
+                        : `${group.members.length} member`}
+                    </p>
+                    <p className={styles.groupMeta}>
+                      Created: {new Date(group.createdAt).toLocaleDateString()}
+                    </p>
+                  </Link>
                 </li>
               ))}
             </ul>

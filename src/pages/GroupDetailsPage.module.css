@@ -1,0 +1,61 @@
+.page {
+  min-height: 100dvh;
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 32px 20px;
+}
+
+.backLink {
+  color: #176b4a;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.backLink:hover {
+  text-decoration: underline;
+}
+
+.backLink:focus-visible {
+  outline: 2px solid #176b4a;
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+.title {
+  margin: 24px 0 0;
+  font-size: 30px;
+  line-height: 1.2;
+}
+
+.meta {
+  margin: 10px 0 24px;
+  color: #66717a;
+  line-height: 1.5;
+}
+
+.membersCard {
+  background-color: white;
+  border: 1px solid #dde4e1;
+  border-radius: 16px;
+  padding: 20px;
+}
+
+.sectionTitle {
+  margin: 0 0 16px;
+  font-size: 20px;
+}
+
+.memberList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.memberItem {
+  padding: 12px;
+  border: 1px solid #dde4e1;
+  border-radius: 10px;
+}
