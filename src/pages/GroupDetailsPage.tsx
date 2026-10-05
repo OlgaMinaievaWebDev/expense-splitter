@@ -28,6 +28,7 @@ function GroupDetailsPage({ groups }: GroupDetailsPageProps) {
       </Link>
       <h1 className={styles.title}>{selectedGroup.name}</h1>
       <p className={styles.meta}>Base currency: {selectedGroup.baseCurrency}</p>
+      <Link to={`/groups/${selectedGroup.id}/expenses/new`}>Add Expense</Link>
       <section className={styles.membersCard}>
         <h2 className={styles.sectionTitle}>Members</h2>
         <ul className={styles.memberList}>
