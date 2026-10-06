@@ -39,6 +39,7 @@
   border: 1px solid #dde4e1;
   border-radius: 16px;
   padding: 20px;
+  margin-top: 24px;
 }
 
 .sectionTitle {
@@ -58,4 +59,25 @@
   padding: 12px;
   border: 1px solid #dde4e1;
   border-radius: 10px;
+}
+
+.addExpenseLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  padding: 0 16px;
+  background-color: #176b4a;
+  color: white;
+  border-radius: 12px;
+  text-decoration: none;
+}
+
+.addExpenseLink:hover {
+  background-color: #12583d;
+}
+
+.addExpenseLink:focus-visible {
+  outline: 3px solid #176b4a;
+  outline-offset: 3px;
 }

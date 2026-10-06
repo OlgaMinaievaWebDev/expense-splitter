@@ -99,6 +99,7 @@ function CreateGroupPage({
       name: normalizedFormValues.groupName,
       baseCurrency: normalizedFormValues.baseCurrency,
       createdAt: new Date().toISOString(),
+      expenses: [],
       members: [
         {
           id: crypto.randomUUID(),
