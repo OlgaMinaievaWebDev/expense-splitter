@@ -2,6 +2,7 @@ import { Link, useNavigate, useParams } from 'react-router';
 import { useState, type SubmitEvent } from 'react';
 import type { Group } from '../types/group';
 import type { Expense } from '../types/expense';
+import styles from './AddExpensePage.module.css';
 
 type AddExpenseProps = {
   groups: Group[];
@@ -61,23 +62,30 @@ function AddExpensePage({ groups, onAddExpense }: AddExpenseProps) {
 
   if (!matchingGroup) {
     return (
-      <div>
-        <p>Group not found</p>
-        <Link to="/">Back to Dashboard</Link>
+      <div className={styles.page}>
+        <Link to="/" className={styles.backLink}>
+          Back to Dashboard
+        </Link>
+        <h1 className={styles.title}>Group not found</h1>
       </div>
     );
   }
 
   return (
-    <div>
-      <h1>Add expense to {matchingGroup.name}</h1>
-      <Link to={`/groups/${matchingGroup.id}`}>Back to group</Link>
-      <form onSubmit={handleSubmit}>
-        <fieldset>
-          <legend>Expense details</legend>
-          <div>
-            <label htmlFor="description">Description</label>
+    <div className={styles.page}>
+      <Link to={`/groups/${matchingGroup.id}`} className={styles.backLink}>
+        Back to group
+      </Link>
+      <h1 className={styles.title}>Add expense to {matchingGroup.name}</h1>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <fieldset className={styles.fieldset}>
+          <legend className={styles.legend}>Expense details</legend>
+          <div className={styles.field}>
+            <label htmlFor="description" className={styles.label}>
+              Description
+            </label>
             <input
+              className={styles.control}
               type="text"
               id="description"
               name="description"
@@ -85,11 +93,12 @@ function AddExpensePage({ groups, onAddExpense }: AddExpenseProps) {
               placeholder="Dinner"
             />
           </div>
-          <div>
-            <label htmlFor="amount">
+          <div className={styles.field}>
+            <label htmlFor="amount" className={styles.label}>
               Amount ({matchingGroup.baseCurrency})
             </label>
             <input
+              className={styles.control}
               type="number"
               id="amount"
               name="amount"
@@ -99,9 +108,17 @@ function AddExpensePage({ groups, onAddExpense }: AddExpenseProps) {
               required
             />
           </div>
-          <div>
-            <label htmlFor="paid-by">Paid by</label>
-            <select name="paidByMemberId" id="paid-by" required defaultValue="">
+          <div className={styles.field}>
+            <label htmlFor="paid-by" className={styles.label}>
+              Paid by
+            </label>
+            <select
+              name="paidByMemberId"
+              id="paid-by"
+              required
+              defaultValue=""
+              className={styles.control}
+            >
               <option value="" disabled>
                 Select payer
               </option>
@@ -114,28 +131,37 @@ function AddExpensePage({ groups, onAddExpense }: AddExpenseProps) {
           </div>
         </fieldset>
         <fieldset
+          className={styles.fieldset}
           aria-describedby={participantError ? 'participant-error' : undefined}
         >
-          <legend>Split between</legend>
+          <legend className={styles.legend}>Split between</legend>
           {matchingGroup.members.map((member) => (
-            <div key={member.id}>
+            <div key={member.id} className={styles.participantRow}>
               <input
+                className={styles.checkbox}
                 id={`participant-${member.id}`}
                 type="checkbox"
                 name="participantIds"
                 value={member.id}
                 defaultChecked
               />
-              <label htmlFor={`participant-${member.id}`}>{member.name}</label>
+              <label
+                htmlFor={`participant-${member.id}`}
+                className={styles.participantLabel}
+              >
+                {member.name}
+              </label>
             </div>
           ))}
           {participantError && (
-            <p id="participant-error" role="alert">
+            <p id="participant-error" role="alert" className={styles.error}>
               {participantError}
             </p>
           )}
         </fieldset>
-        <button type="submit">Add expense</button>
+        <button type="submit" className={styles.submitButton}>
+          Add expense
+        </button>
       </form>
     </div>
   );
