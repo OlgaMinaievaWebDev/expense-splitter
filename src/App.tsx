@@ -38,6 +38,16 @@ function App() {
     }
   });
 
+  const accessibleGroups = currentUser
+    ? groups.filter((group) =>
+        group.members.some(
+          (member) =>
+            member.name.trim().toLowerCase() ===
+            currentUser.trim().toLowerCase()
+        )
+      )
+    : [];
+
   const handleContinue = (name: string) => {
     localStorage.setItem(CURRENT_USER_STORAGE_KEY, name);
     setCurrentUser(name);
@@ -76,7 +86,7 @@ function App() {
             currentUser ? (
               <DashboardPage
                 userName={currentUser}
-                groups={groups}
+                groups={accessibleGroups}
                 onLogout={handleLogout}
               />
             ) : (
@@ -90,7 +100,7 @@ function App() {
             currentUser ? (
               <CreateGroupPage
                 userName={currentUser}
-                groups={groups}
+                groups={accessibleGroups}
                 onCreateGroup={handleCreateGroup}
               />
             ) : (
@@ -102,7 +112,7 @@ function App() {
           path="/groups/:groupId"
           element={
             currentUser ? (
-              <GroupDetailsPage groups={groups} />
+              <GroupDetailsPage groups={accessibleGroups} />
             ) : (
               <Navigate to="/" replace />
             )
@@ -112,7 +122,10 @@ function App() {
           path="/groups/:groupId/expenses/new"
           element={
             currentUser ? (
-              <AddExpensePage groups={groups} onAddExpense={handleAddExpense} />
+              <AddExpensePage
+                groups={accessibleGroups}
+                onAddExpense={handleAddExpense}
+              />
             ) : (
               <Navigate to="/" replace />
             )
